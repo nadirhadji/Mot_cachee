@@ -7,28 +7,24 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef FILE_HANDLER.H
-#define FILE_HANDLER.H
-#endif
-
 //Inculsion " " ou < >
+#ifndef STDIO_H
 #include <stdio.h>
-#include <errno.h>
-#include <string.h>
-#include <ctype.h>
+#endif
 
 //Declaration Macro et macro fonctions
 #define MATRICE_SIZE 12
 #define NUMBER_WORDS 10
 
 //Declaration des types
-struct Grid {
+typedef struct {
     char matrice[MATRICE_SIZE][MATRICE_SIZE];
-};
+}Matrice;
 
-struct Words {
-    char words_list[NUMBER_WORDS][MATRICE_SIZE];
-};
+typedef struct {
+    char word[NUMBER_WORDS][MATRICE_SIZE];
+}Words;
+
 
 //Declaration des fonctions publique avec leurs doctring
 
@@ -38,7 +34,7 @@ struct Words {
  * @param file_name Name or path to the file to open.
  * @return FILE* poiter to the file or null if an error occued. 
  */
-FILE *open_file(char *file_name);
+FILE *open_file(const char *file_name);
 
 /**
  * @brief Close the file given in parameter
@@ -54,7 +50,7 @@ int close_file(FILE *file);
  * @param file FILE* where the grid of chars is. 
  * @return Grid struct of type Grid containing char[12][12].
  */
-Grid get_matrice(FILE *file);
+Matrice get_matrice(FILE *file);
 
 /**
  * @brief Initialise a macro of the number of words in file. 
@@ -63,7 +59,7 @@ Grid get_matrice(FILE *file);
  * 
  * @param file FILE* where words are listed (1 by line)
  */
-void define_number_words(FILE *file);
+int get_number_words(FILE *file);
 
 /**
  * @brief Get a list of type char[][] containing all the words
