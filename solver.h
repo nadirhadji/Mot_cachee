@@ -17,6 +17,7 @@ enum Orientation {RIGHT , LEFT, UP, DOWN};
 
 struct Position {
     enum Orientation o;
+    int size;
     char *position;
 };
 
@@ -39,10 +40,11 @@ int word_size(char *word);
  * @param column column number if the char to check
  * @param position Pointer to a char in the grid
  * @param word Pointer to first char of a word
+ * @param word_size Size of the word.
  * @return true if word exist right to position(included).
  * @return false if not.
  */
-bool right_check(int row, int column, char *position, char *word);
+bool right_check(int row, int column, char *position, char *word, int word_size);
 
 /**
  * @brief Verify if an exact match of chars exists between the 
@@ -53,10 +55,11 @@ bool right_check(int row, int column, char *position, char *word);
  * @param column column number if the char to check
  * @param position Pointer to a char in the grid
  * @param word Pointer to first char of a word
+ * @param word_size Size of the word.
  * @return true if word exist left to position(included).
  * @return false if not.
  */
-bool left_check(int row, int column, char *position, char *word);
+bool left_check(int row, int column, char *position, char *word, int word_size);
 
 /**
  * @brief Verify if an exact match of chars exists between the 
@@ -67,10 +70,11 @@ bool left_check(int row, int column, char *position, char *word);
  * @param column column number if the char to check
  * @param position Pointer to a char in the grid
  * @param word Pointer to first char of a word
+ * @param word_size Size of the word.
  * @return true if word exist above position(included).
  * @return false if not.
  */
-bool above_check(int row, int column, char *position, char *word);
+bool above_check(int row, int column, char *position, char *word, int word_size);
 
 /**
  * @brief Verify if an exact match of chars exists between the 
@@ -81,10 +85,11 @@ bool above_check(int row, int column, char *position, char *word);
  * @param column column number if the char to check
  * @param position Pointer to a char in the grid
  * @param word Pointer to first char of a word
+ * @param word_size Size of the word.
  * @return true if word exist under position(included).
  * @return false if not.
  */
-bool under_check(int row, int column, char *position, char *word);
+bool under_check(int row, int column, char *position, char *word, int word_size);
 
 /**
  * @brief Verify if the word matches up, down, right or left of
@@ -103,18 +108,32 @@ Position check_word(int row, int column, char *position, char *word);
  * @brief Add a Position object to the list in arguments
  * 
  * @param position the Position object to add
- * @param positions the Position array
+ * @param solutions array of the the found positions
  */
-void add_found_position(Position position, Position positions[]);
+void add_found_position(Position position, Position solutions[]);
+
+/**
+ * @brief Find the position of the word in the grid and add it the 
+ * solutions (If not null).
+ * 
+ *  Loop on the grid + call check word + 
+ *  (eventually) call add_found_position
+ * 
+ * @param grid matrice of caracteres where to search words
+ * @param solutions array of the found positions. 
+ * @param word Pointer to first char of a word
+ */
+void find_word(char** grid, Position solutions[] ,char* word);
 
 /**
  * @brief Find the position of every word in the grid.
+ * Loop on words + Call check_word
  * 
  * @param words array of words in grid
  * @param grid matrice of caracteres where to search words
  * @return Position* array of the positions found.
  */
-Position* find_positions(char ** words, char** grid);
+Position* find_words(char ** words, char** grid);
 
 /**
  * @brief Replace all words in found on the grid previously
