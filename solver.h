@@ -9,6 +9,9 @@
  */
 
 //Inculsion " " ou < >
+#ifndef FILE_HANDLER_H
+#include "file_handler.h"
+#endif
 
 //Declaration Macro et macro fonctions
 
@@ -102,7 +105,18 @@ bool under_check(int row, int column, char *position, char *word, int word_size)
  * @return Position structure {row,column,orientation} if found
  * NULL if not.
  */
-Position check_word(int row, int column, char *position, char *word);
+bool check_word(int row, int column, char *position, char *word);
+
+/**
+ * @brief Find the position of the word in the grid and create the object
+ * 
+ *  Loop on the grid + call check word 
+ * 
+ * @param grid matrice of caracteres where to search words
+ * @param word Pointer to first char of a word
+ * @return Position of the word in the grid or null if doesn't exists
+ */
+Position find_word_at_position(int row, int column, char **grid ,char **word);
 
 /**
  * @brief Add a Position object to the list in arguments
@@ -110,20 +124,7 @@ Position check_word(int row, int column, char *position, char *word);
  * @param position the Position object to add
  * @param solutions array of the the found positions
  */
-void add_found_position(Position position, Position solutions[]);
-
-/**
- * @brief Find the position of the word in the grid and add it the 
- * solutions (If not null).
- * 
- *  Loop on the grid + call check word + 
- *  (eventually) call add_found_position
- * 
- * @param grid matrice of caracteres where to search words
- * @param solutions array of the found positions. 
- * @param word Pointer to first char of a word
- */
-void find_word(char** grid, Position solutions[] ,char* word);
+void add_found_position(Position position, Position** solutions);
 
 /**
  * @brief Find the position of every word in the grid.
@@ -133,7 +134,7 @@ void find_word(char** grid, Position solutions[] ,char* word);
  * @param grid matrice of caracteres where to search words
  * @return Position* array of the positions found.
  */
-Position* find_words(char ** words, char** grid);
+Position** find_words_positions(char ** words, char **grid);
 
 /**
  * @brief Replace all words in found on the grid previously
@@ -143,7 +144,7 @@ Position* find_words(char ** words, char** grid);
  * @param grid the grid to clean
  * @param positions positions of the found words previously 
  */
-void clean_grid(char **grid, Position positions[]);
+void clean_grid(char **grid, Position** positions);
 
 /**
  * @brief Orchester the internal behaviour of the Solver Module.

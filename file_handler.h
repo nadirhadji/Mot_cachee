@@ -14,17 +14,11 @@
 
 //Declaration Macro et macro fonctions
 #define MATRICE_SIZE 12
-#define NUMBER_WORDS 10
 
 //Declaration des types
 typedef struct {
     char matrice[MATRICE_SIZE][MATRICE_SIZE];
 }Matrice;
-
-typedef struct {
-    char word[NUMBER_WORDS][MATRICE_SIZE];
-}Words;
-
 
 //Declaration des fonctions publique avec leurs doctring
 
@@ -68,10 +62,20 @@ int get_number_words(FILE *file);
  * @param file FILE* where words are listed (1 by line)
  * @return Words 
  */
-Words get_words(FILE *file);
+char** get_words(FILE *file, int nb_words);
 
+/**
+ * @brief 
+ * 
+ * @param matrice 
+ */
+void print_matrice(Matrice matrice);
 
-
-
-
+/**
+ * @brief 
+ * 
+ * @param words_array 
+ * @param number_words 
+ */
+void print_words(char ** words_array, int number_words);
 
