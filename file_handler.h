@@ -44,7 +44,7 @@ int close_file(FILE *file);
  * @param file FILE* where the grid of chars is. 
  * @return Grid struct of type Grid containing char[12][12].
  */
-Matrice get_matrice(FILE *file);
+char** get_matrice(FILE *file);
 
 /**
  * @brief Initialise a macro of the number of words in file. 
@@ -69,7 +69,7 @@ char** get_words(FILE *file, int nb_words);
  * 
  * @param matrice 
  */
-void print_matrice(Matrice matrice);
+void print_matrice(char **matrice);
 
 /**
  * @brief 

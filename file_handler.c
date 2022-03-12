@@ -56,9 +56,9 @@ int get_number_words(FILE *file) {
  */
 char** create_dynamic_string_array(int nb) {
     char **array;
-    array = malloc(sizeof(char*) * nb );
+    array = calloc(sizeof(char*),nb);
     for ( int i = 0 ; i < nb ; i++) {
-        array[i] = malloc( (MATRICE_SIZE+1) * sizeof(char) );
+        array[i] = calloc(sizeof(char),MATRICE_SIZE);
     }
     return array;
 }
@@ -94,15 +94,15 @@ int close_file(FILE *file) {
     return val; 
 }
 
-Matrice get_matrice(FILE *file) {
-    Matrice m;
+char** get_matrice(FILE *file) {
+    char **matrice = create_dynamic_string_array(MATRICE_SIZE);
     char newline_symbol_buffer;
     for ( int i = 0 ; i < MATRICE_SIZE ; ++i) {
         for ( int j = 0 ; j < MATRICE_SIZE ; ++j ) 
-            m.matrice[i][j] = fgetc(file);
+            matrice[i][j] = fgetc(file);
         newline_symbol_buffer = fgetc(file);
     }
-    return m;
+    return matrice;
 }
 
 char** get_words(FILE *file, int nb_words) {
@@ -116,10 +116,10 @@ char** get_words(FILE *file, int nb_words) {
     return array;
 }
 
-void print_matrice(Matrice m) {
+void print_matrice(char **matrice) {
     for ( int i = 0 ; i < MATRICE_SIZE ; ++i) {
         for ( int j = 0 ; j < MATRICE_SIZE ; j++) 
-            printf(" %c ",m.matrice[i][j]);
+            printf(" %c ",matrice[i][j]);
         printf("\n");
     }
 }
