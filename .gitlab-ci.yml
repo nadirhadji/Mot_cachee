@@ -1,6 +1,5 @@
 stages:
     - build
-    - test
 
 before_script:
     - apt-get update -qq
