@@ -13,12 +13,14 @@
 #endif
 
 //Declaration Macro et macro fonctions
-#define MATRICE_SIZE 12
+#define GRID_SIZE 12
 
 //Declaration des types
 typedef struct {
-    char matrice[MATRICE_SIZE][MATRICE_SIZE];
-}Matrice;
+    char **grid;
+    char **words;
+    int words_count;
+}Game;
 
 //Declaration des fonctions publique avec leurs doctring
 
@@ -44,7 +46,7 @@ int close_file(FILE *file);
  * @param file FILE* where the grid of chars is. 
  * @return Grid struct of type Grid containing char[12][12].
  */
-char** get_matrice(FILE *file);
+char** get_grid(FILE *file);
 
 /**
  * @brief Initialise a macro of the number of words in file. 
@@ -67,9 +69,9 @@ char** get_words(FILE *file, int nb_words);
 /**
  * @brief 
  * 
- * @param matrice 
+ * @param grid 
  */
-void print_matrice(char **matrice);
+void print_grid(char **grid);
 
 /**
  * @brief 
@@ -79,3 +81,16 @@ void print_matrice(char **matrice);
  */
 void print_words(char ** words_array, int number_words);
 
+/**
+ * @brief 
+ * 
+ * @return Game 
+ */
+Game new_game(char* file_name);
+
+/**
+ * @brief 
+ * 
+ * @param game 
+ */
+void delete_game(Game game);

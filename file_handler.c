@@ -41,10 +41,11 @@ int get_number_words(FILE *file) {
     int number_words = 0;
     char buffer_empty_line = fgetc(file);
     long start_position = ftell(file);
-    char buff[MATRICE_SIZE];
+    char buff[GRID_SIZE];
     while(fgets(buff,sizeof(buff),file) != NULL)
        number_words++;
     fseek(file,start_position,SEEK_SET);
+    //printf("Words count is : %d\n",number_words);
     return number_words;
 }
 
@@ -58,7 +59,7 @@ char** create_dynamic_string_array(int nb) {
     char **array;
     array = calloc(sizeof(char*),nb);
     for ( int i = 0 ; i < nb ; i++) {
-        array[i] = calloc(sizeof(char),MATRICE_SIZE);
+        array[i] = calloc(sizeof(char),GRID_SIZE);
     }
     return array;
 }
@@ -94,32 +95,42 @@ int close_file(FILE *file) {
     return val; 
 }
 
-char** get_matrice(FILE *file) {
-    char **matrice = create_dynamic_string_array(MATRICE_SIZE);
+char** get_grid(FILE *file) {
+    char **grid = create_dynamic_string_array(GRID_SIZE);
     char newline_symbol_buffer;
-    for ( int i = 0 ; i < MATRICE_SIZE ; ++i) {
-        for ( int j = 0 ; j < MATRICE_SIZE ; ++j ) 
-            matrice[i][j] = fgetc(file);
+    for ( int i = 0 ; i < GRID_SIZE ; ++i) {
+        for ( int j = 0 ; j < GRID_SIZE ; ++j ) 
+            grid[i][j] = fgetc(file);
         newline_symbol_buffer = fgetc(file);
     }
-    return matrice;
+    //print_grid(grid);
+    return grid;
 }
 
 char** get_words(FILE *file, int nb_words) {
     char **array = create_dynamic_string_array(nb_words);
     for ( int i = 0 ; i < nb_words ; ++i) { 
-        char word_buffer[MATRICE_SIZE];
-        fgets(word_buffer, MATRICE_SIZE, file);
+        char word_buffer[GRID_SIZE];
+        fgets(word_buffer, GRID_SIZE, file);
         int size = strlen(word_buffer) - 1;
         strncpy(array[i],word_buffer,size);
     }
+    //print_words(array,nb_words);
     return array;
 }
 
-void print_matrice(char **matrice) {
-    for ( int i = 0 ; i < MATRICE_SIZE ; ++i) {
-        for ( int j = 0 ; j < MATRICE_SIZE ; j++) 
-            printf(" %c ",matrice[i][j]);
+void print_grid(char **grid) {
+
+    printf("\n\t*** grid ***\n\n   ");
+
+    for ( int j = 0 ; j < GRID_SIZE ; ++j) 
+        printf("%d  ",j);
+    printf("\n");
+
+    for ( int i = 0 ; i < GRID_SIZE ; ++i) {
+        printf("%d  ",i);
+        for ( int j = 0 ; j < GRID_SIZE ; j++) 
+            printf("%c  ",grid[i][j]);
         printf("\n");
     }
 }
@@ -130,3 +141,22 @@ void print_words(char ** w, int nb_words) {
         printf("\n");
     }
 }
+
+Game new_game(char* file_name) {
+    FILE *file;
+    file = open_file(file_name);
+    char** grid = get_grid(file);
+    int words_count = get_number_words(file);
+    char** words = get_words(file,words_count);
+    close_file(file);
+    sort_words_by_length(words,words_count);
+    Game game = {grid,words,words_count};
+    return game;
+}
+
+void delete_game(Game game) {
+    //printf("Restituation of allocated memory\n");
+    delete_dynamic_string_array(game.words,game.words_count);
+    delete_dynamic_string_array(game.grid,GRID_SIZE);
+}
+

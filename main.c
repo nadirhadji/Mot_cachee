@@ -8,32 +8,15 @@
  */
 
 #include <stdio.h>
-#include "file_handler.h"
+#include <stdlib.h>
 #include "solver.h"
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]) {
     const char *file_name = argv[1];
-    //File init
-    FILE *file;
-    file = open_file(file_name);
-
-    //Matrice init
-    char** matrice = get_matrice(file);
-    print_matrice(matrice);
-
-    //Word array init
-    int n = get_number_words(file);
-    printf("Nombre de mots = %d\n",n);
-    char** words = get_words(file,n);
-    //sort_words_by_length(words,n);
-    print_words(words,n);
-    
-    solve(matrice,words,n);
-    //Close file
-    delete_dynamic_string_array(words,n);
-    close_file(file);
-
+    char *hidden_word = calloc(sizeof(char),GRID_SIZE);
+    get_hidden_word(file_name,hidden_word);
+    printf("%s\n",hidden_word);
+    free(hidden_word);
     return 0;
 }
 

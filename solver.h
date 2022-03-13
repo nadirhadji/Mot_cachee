@@ -12,22 +12,12 @@
 #include <stdbool.h>
 
 //Declaration Macro et macro fonctions
+#define GRID_SIZE 12
 
 //Declaration des types
 enum Orientation {RIGHT , LEFT, ABOVE, UNDER, NO};
 
 typedef struct {
-    char **list;
-    int count;
-}Words;
-
-typedef struct {
-    char *word;
-    int length;
-}Word;
-
-typedef struct 
-{
     int row;
     int column;
 }Point;
@@ -42,12 +32,6 @@ typedef struct {
     Position **list;
     int count;
 }Solution;
-
-typedef struct {
-    char **grid;
-    Words words;
-}Game;
-
 
 // /**
 //  * @brief Verify if an exact match of chars exists between the 
@@ -151,21 +135,29 @@ typedef struct {
 //  */
 // Position** find_words_positions(char ** words, char **grid);
 
-/**
- * @brief Replace all words in found on the grid previously
- * by 0. At the end only the chars of the mystery word will
- * remain in the grid. 
- * 
- * @param grid the grid to clean
- * @param positions positions of the found words previously 
- */
-void clean_grid(char **grid, Position** positions);
+// /**
+//  * @brief Replace all words in found on the grid previously
+//  * by 0. At the end only the chars of the mystery word will
+//  * remain in the grid. 
+//  * 
+//  * @param grid the grid to clean
+//  * @param positions positions of the found words previously 
+//  */
+// void clean_grid(char **grid, Solution *solution);
+
+// /**
+//  * @brief Orchester the internal behaviour of the Solver Module.
+//  * 
+//  * @param grid Matrice of char 
+//  * @param words array of words
+//  * @return char* Mystery word in the grid.
+//  */
+// Solution solve(Game game);
 
 /**
- * @brief Orchester the internal behaviour of the Solver Module.
+ * @brief Get the hidden word object
  * 
- * @param grid Matrice of char 
- * @param words array of words
- * @return char* Mystery word in the grid.
+ * @param file_name 
+ * @return char* 
  */
-void solve(char **grid, char **words, int nb_words);
+void get_hidden_word(char *file_name, char *hidden_word);
