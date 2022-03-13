@@ -13,8 +13,3 @@ build:
     stage: build
     script:
         - make
-
-test:
-    stage: test
-    script:
-        - make test
