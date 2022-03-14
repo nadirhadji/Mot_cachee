@@ -1,5 +1,4 @@
 *.o
-*.txt
 motcache
 .vscode/*
 .vscode
