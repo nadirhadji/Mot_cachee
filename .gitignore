@@ -1,0 +1,5 @@
+*.o
+motcache
+.vscode/*
+.vscode
+
