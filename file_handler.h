@@ -7,90 +7,59 @@
  * @copyright Copyright (c) 2022
  */
 
-//Inculsion " " ou < >
-#ifndef STDIO_H
 #include <stdio.h>
-#endif
+#include <stdlib.h>
+#include <string.h>
 
-//Declaration Macro et macro fonctions
+//************Macro***********
 #define GRID_SIZE 12
 
-//Declaration des types
+//************Types************
 typedef struct {
     char **grid;
     char **words;
     int words_count;
 }Game;
 
-//Declaration des fonctions publique avec leurs doctring
+//************Public functions**********
 
 /**
- * @brief Open the file in read mode and return it if he exist. Null otherwise.
+ * @brief Print to stdout the current state of the grid
+ * with the value of each char at each cell. 
  * 
- * @param file_name Name or path to the file to open.
- * @return FILE* poiter to the file or null if an error occued. 
- */
-FILE *open_file(const char *file_name);
-
-/**
- * @brief Close the file given in parameter
- * 
- * @param file *FILE type object
- * @return int 0 if closed, -1 if not
- */
-int close_file(FILE *file);
-
-/**
- * @brief Get the Grid object field with the grid in the file
- * 
- * @param file FILE* where the grid of chars is. 
- * @return Grid struct of type Grid containing char[12][12].
- */
-char** get_grid(FILE *file);
-
-/**
- * @brief Initialise a macro of the number of words in file. 
- * The pointor position after read and count is replaced at 
- * initial position (first word, first char).
- * 
- * @param file FILE* where words are listed (1 by line)
- */
-int get_number_words(FILE *file);
-
-/**
- * @brief Get a list of type char[][] containing all the words
- * in the file.
- * 
- * @param file FILE* where words are listed (1 by line)
- * @return Words 
- */
-char** get_words(FILE *file, int nb_words);
-
-/**
- * @brief 
- * 
- * @param grid 
+ * @param grid Pointer to char array containing the game grid.
  */
 void print_grid(char **grid);
 
 /**
- * @brief 
+ * @brief Print to stdout the list of words
+ * 1 by row
  * 
- * @param words_array 
- * @param number_words 
+ * @param words_list Pointer to char array containing the list
+ * @param nb_words Number of words in the grid
  */
-void print_words(char ** words_array, int number_words);
+void print_words(char ** words_list, int nb_words);
 
 /**
- * @brief 
+ * @brief Create an object of type Game from a file.
  * 
- * @return Game 
+ * Game object will contain : 
+ *  - the game grid : char**
+ *  - the words list : char**
+ *  - number of words in words list : int 
+ * 
+ * The game grid and words list are arrays allocated on the Heap.
+ * *IMPORTANT* need to call delete_game after usage to free the
+ * allocated memory. 
+ * 
+ * @param file_name the name of the file containing the game data.
+ * @return Game Object of type Game containing the game data.
  */
 Game new_game(char* file_name);
 
 /**
- * @brief 
+ * @brief Delete all the allocated memory related to a Game object
  * 
- * @param game 
+ * @param game The Game object.
  */
 void delete_game(Game game);
