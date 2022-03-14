@@ -362,10 +362,8 @@ void delete_word(char **grid , Position *position) {
  * @param solution Pointer to all Position in Solution   
  */
 void clean_grid(char **grid, Solution *solution) {
-   print_grid(grid);
    for ( int i = 0 ; i < solution->count ; i++ ) {
        Position *position = solution->list[i];
-       printf("row : %d col : %d size = %d\n",position->point.row,position->point.column,position->size);
        delete_word(grid,position);
    }
 }
