@@ -63,7 +63,6 @@ Vous pouvez ecrire vos entrée en parametres comme suit :
 $ ./motcache tests_folder/text.txt
 ```
 
-
 ## Tests :hammer: ##
 
 Pour executer les testes automatiques, il est imperatif d'installer Bats sur ca machine. Pour cela ci ce n'est pas deja fait, vous pouvez lancer la commande : 
