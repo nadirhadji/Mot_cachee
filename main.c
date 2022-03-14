@@ -12,7 +12,7 @@
 #include "solver.h"
 
 #define log_error_nb_args() \
-    fprintf(stderr,"Erreur : Seulement 1 argument est permis. \n"); \
+    fprintf(stderr,"Usage: ./motcache <nom_fichier>\n"); \
     return 1;
 
 int main(int argc, char *argv[]) {

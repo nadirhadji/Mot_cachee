@@ -12,7 +12,7 @@
 //************Macro fonctions***************
 
 #define log_error_file_open() \
-    fprintf(stderr,"Erreur : Echec de l'ouverture du fichier. \n"); \
+    fprintf(stderr,"Erreur : Echec de l'ouverture du fichier.\n"); \
 
 #define log_error_file_close() \
     fprintf(stderr,"Erreur : Echec de la fermeture du fichier. \n"); \

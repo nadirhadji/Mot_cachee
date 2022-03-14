@@ -23,5 +23,7 @@ clean:
 	rm *.o 
 	rm $(EXEC)
 
-test:
+test: $(EXEC)
+	bats check.bats --tap
+
 

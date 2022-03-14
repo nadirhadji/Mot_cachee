@@ -1,5 +1,6 @@
 stages:
     - build
+    - test
 
 before_script:
     - apt-get update -qq
@@ -12,3 +13,9 @@ build:
     stage: build
     script:
         - make
+
+test:
+    stage: test
+    script:
+        - make test
+
